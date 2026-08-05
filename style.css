@@ -1,0 +1,517 @@
+/* 1. Reset & Global Variables */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+:root {
+    /* Color Palette */
+    --paper: #F5F3EE;
+    --paper-2: #EDE9DE;
+    --ink: #16181A;
+    --ink-soft: #3A3D3F;
+    --rec: #D6402E;
+    --navy: #1F3A5F;
+    --line: rgba(22, 24, 26, 0.12);
+    --stone: #5c574f;
+
+    /* Typography */
+    --font-display: 'Unbounded', sans-serif;
+    --font-body: 'Manrope', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+    background-color: var(--paper-2);
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 2. Base Layout Components */
+.wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.site {
+    background: var(--paper);
+}
+
+.bordered {
+    padding: 56px 40px;
+}
+
+.thin {
+    font-weight: 400;
+    color: var(--ink-soft);
+}
+
+.rec-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--rec);
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* 3. Navigation */
+.site-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--line);
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.site-nav .links {
+    display: flex;
+    gap: 24px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+}
+
+.site-nav .links a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.site-nav .links a:hover {
+    color: var(--rec);
+}
+
+/* 4. Hero Section */
+.site-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+    padding: 56px 40px;
+    align-items: center;
+}
+
+.site-hero h1 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 32px;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+.site-hero p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin-top: 16px;
+    max-width: 380px;
+}
+
+.cta {
+    display: inline-block;
+    margin-top: 22px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--rec);
+    padding: 13px 26px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.cta:hover {
+    opacity: 0.9;
+}
+
+.site-hero .visual {
+    aspect-ratio: 3/5;
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+    background: linear-gradient(160deg, var(--ink), var(--rec) 55%, var(--ink));
+}
+
+/* 5. Services Section */
+.services-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border-top: 1px solid var(--line);
+}
+
+.service-cell {
+    background: var(--paper);
+    padding: 32px 28px;
+}
+
+.service-cell .tag2 {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--rec);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.service-cell h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
+.service-cell p {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+    line-height: 1.6;
+}
+
+/* 6. Film Roll / Sprocket Separator */
+.sprocket {
+    height: 26px;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    overflow: hidden;
+    padding: 0 32px;
+}
+
+.sprocket span {
+    width: 9px;
+    height: 9px;
+    background: var(--paper);
+    flex-shrink: 0;
+    border-radius: 1px;
+}
+
+/* 7. Secondary Hero / About Intro */
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+    padding: 56px 40px;
+    align-items: center;
+}
+
+.hero .rec-line {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rec);
+    margin-bottom: 28px;
+}
+
+.wordmark {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(42px, 9vw, 108px);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-transform: uppercase;
+}
+
+.subline {
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin-top: 26px;
+    max-width: 480px;
+    line-height: 1.6;
+}
+
+.hero-tags {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 34px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+}
+
+.about-frame {
+    aspect-ratio: 4 / 5;
+    position: relative;
+    border-radius: 3px;
+    background: #17181B url('/ty.jpg') center/cover no-repeat;
+}
+
+.about-frame .tag {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--paper);
+}
+
+/* Frame Target Corners */
+.frame {
+    position: relative;
+}
+
+.frame .c {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.frame .c::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 22px;
+    height: 1px;
+    background: var(--rec);
+}
+
+.frame .c::after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    width: 1px;
+    height: 22px;
+    background: var(--rec);
+}
+
+.frame .c.tl {
+    top: 10px;
+    left: 10px;
+}
+
+.frame .c.tr {
+    top: 10px;
+    right: 10px;
+}
+
+.frame .c.bl {
+    bottom: 10px;
+    left: 10px;
+}
+
+.frame .c.br {
+    bottom: 10px;
+    right: 10px;
+}
+
+.frame.always .c,
+.frame:hover .c,
+.frame:focus-within .c {
+    opacity: 0.85;
+}
+
+/* 8. Portfolio Section */
+.frame-no {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rec);
+    margin-bottom: 28px;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 118px;
+    gap: 8px;
+}
+
+.p-tile {
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.p-tile.tall {
+    grid-row: span 2;
+}
+
+.fr {
+    position: relative;
+}
+
+.fr .tag {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+}
+
+.ph {
+    width: 100%;
+    height: 100%;
+}
+
+.ph.wedding {
+    background: linear-gradient(150deg, var(--navy), #8a97a8 60%, var(--paper-2));
+}
+
+.ph.event {
+    background: linear-gradient(150deg, #1F3A5F, #4c6b8a 70%);
+}
+
+.ph.commercial {
+    background: linear-gradient(135deg, var(--ink), var(--rec) 55%, var(--ink));
+}
+
+.ph.reel {
+    background: linear-gradient(160deg, var(--ink), #5a2a22 60%, var(--rec));
+}
+
+.play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--rec);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/* 9. Contact Section */
+.contact {
+    background: var(--paper);
+    color: var(--ink);
+}
+
+.eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rec);
+    margin-bottom: 28px;
+}
+
+.contact .section-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 32px;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+.contact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.contact-links a {
+    text-decoration: none;
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: clamp(24px, 3.5vw, 36px);
+    border-bottom: 2px solid transparent;
+    width: fit-content;
+    transition: border-color 0.2s;
+}
+
+.contact-links a:hover {
+    border-color: var(--rec);
+}
+
+.contact-meta {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--stone);
+    line-height: 2;
+}
+
+/* 10. Footer */
+footer {
+    padding: 56px 40px;
+    border-top: 1px solid var(--line);
+}
+
+.foot-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.foot-links {
+    display: flex;
+    gap: 22px;
+}
+
+.foot-links a {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--stone);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.foot-links a:hover {
+    color: var(--ink);
+}
+
+.copy {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--stone);
+}
