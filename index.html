@@ -2,183 +2,1309 @@
 <html lang="bg">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todor Yanchev — Photography &amp; Videography</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TODOR YANCHEV — Photography &amp; Videography</title>
+  <meta name="description" content="Todor Yanchev — event photography, videography and promo films. todoryanchev.com" />
+  <meta property="og:site_name" content="todoryanchev.com" />
+  <meta property="og:title" content="TODOR YANCHEV" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230A0A0A'/%3E%3Cpath d='M8 20V8h12M44 8h12v12M56 44v12H44M20 56H8V44' stroke='%23F0EAE0' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='6' fill='%23E8332A'/%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --void: #0A0A0A;
+      --void-soft: #141414;
+      --red: #E8332A;
+      --bone: #F0EAE0;
+      --bone-dim: #9C968B;
+    }
 
-  <!-- Preconnect & Clean Font Imports -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Unbounded:wght@400;600;700;900&display=swap"
-    rel="stylesheet">
-  <link href="./style.css" rel="stylesheet">
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
+    html {
+      scroll-behavior: auto;
+    }
+
+    body {
+      background: var(--void);
+      color: var(--bone);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    img {
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    svg {
+      display: block;
+    }
+
+    /* ---------- progress bar ---------- */
+    #progress-track {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: rgba(240, 234, 224, 0.1);
+      z-index: 60;
+    }
+
+    #progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--red);
+    }
+
+    /* ---------- nav ---------- */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      transition: background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    @media(min-width:768px) {
+      #nav {
+        padding: 22px 40px;
+      }
+    }
+
+    #nav.scrolled {
+      background: rgba(10, 10, 10, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(240, 234, 224, 0.08);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-mark {
+      flex-shrink: 0;
+    }
+
+    .nav-word {
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.12em;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nav-domain {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--bone-dim);
+      display: none;
+    }
+
+    @media(min-width:768px) {
+      .nav-domain {
+        display: inline;
+      }
+    }
+
+    .nav-aperture {
+      color: var(--bone-dim);
+      will-change: transform;
+    }
+
+    /* ---------- section label ---------- */
+    .section-label {
+      position: absolute;
+      left: 24px;
+      top: 24px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--bone-dim);
+    }
+
+    .section-label span {
+      color: var(--red);
+    }
+
+    @media(min-width:768px) {
+      .section-label {
+        left: 64px;
+        top: 40px;
+      }
+    }
+
+    /* ---------- hero ---------- */
+    #hero {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .hero-img-wrap {
+      position: absolute;
+      inset: 0;
+      opacity: 0.75;
+      will-change: transform, opacity;
+    }
+
+    .hero-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-img-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--void), transparent 55%, rgba(10, 10, 10, 0.6));
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: 0 24px 80px;
+    }
+
+    @media(min-width:768px) {
+      .hero-text {
+        padding: 0 64px 112px;
+      }
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      max-width: 900px;
+      font-size: 15vw;
+      font-weight: 900;
+      line-height: 0.88;
+      letter-spacing: -0.02em;
+    }
+
+    @media(min-width:768px) {
+      .hero-title {
+        font-size: 7.5vw;
+      }
+    }
+
+    .hero-sub {
+      margin-top: 24px;
+      max-width: 440px;
+      font-size: 15px;
+      color: var(--bone-dim);
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--bone-dim);
+    }
+
+    .scroll-cue span {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+    }
+
+    .scroll-cue svg {
+      animation: bounce 1.4s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(6px);
+      }
+    }
+
+    /* ---------- rotating "available for bookings" badge ---------- */
+    .spin-badge {
+      position: absolute;
+      right: 20px;
+      bottom: 110px;
+      z-index: 10;
+      width: 104px;
+      height: 104px;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: badgeIn 0.8s ease 0.6s forwards;
+    }
+
+    @media(min-width:768px) {
+      .spin-badge {
+        right: 56px;
+        bottom: 150px;
+        width: 128px;
+        height: 128px;
+      }
+    }
+
+    @keyframes badgeIn {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .spin-badge-ring {
+      width: 100%;
+      height: 100%;
+      animation: spin 14s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .spin-badge-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--red);
+    }
+
+    /* ---------- pinned horizontal reel ---------- */
+    #reel-section {
+      position: relative;
+      background: var(--void);
+      height: 400vh;
+    }
+
+    .reel-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .reel-viewport {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    #reel-row {
+      display: flex;
+      gap: 20px;
+      padding: 0 6vw;
+      will-change: transform;
+    }
+
+    @media(min-width:768px) {
+      #reel-row {
+        gap: 32px;
+        padding: 0 8vw;
+      }
+    }
+
+    .reel-card {
+      position: relative;
+      flex-shrink: 0;
+      height: 64vh;
+      width: 74vw;
+      overflow: hidden;
+    }
+
+    @media(min-width:768px) {
+      .reel-card {
+        height: 70vh;
+        width: 36vw;
+      }
+    }
+
+    .reel-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.5);
+    }
+
+    .reel-corner {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      border-color: rgba(232, 51, 42, 0.7);
+      pointer-events: none;
+    }
+
+    .reel-corner.tl {
+      left: 0;
+      top: 0;
+      border-left: 1px solid;
+      border-top: 1px solid;
+    }
+
+    .reel-corner.tr {
+      right: 0;
+      top: 0;
+      border-right: 1px solid;
+      border-top: 1px solid;
+    }
+
+    .reel-corner.bl {
+      left: 0;
+      bottom: 0;
+      border-left: 1px solid;
+      border-bottom: 1px solid;
+    }
+
+    .reel-corner.br {
+      right: 0;
+      bottom: 0;
+      border-right: 1px solid;
+      border-bottom: 1px solid;
+    }
+
+    .reel-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 20px;
+      opacity: 0;
+    }
+
+    .reel-caption .tag {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--red);
+    }
+
+    .reel-caption h3 {
+      margin-top: 4px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .reel-caption p {
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--bone-dim);
+    }
+
+    #tally {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    @media(min-width:768px) {
+      #tally {
+        bottom: 36px;
+      }
+    }
+
+    .tally-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(240, 234, 224, 0.2);
+      transition: background 0.15s;
+    }
+
+    /* ---------- parallax / reveal grid ---------- */
+    #parallax {
+      position: relative;
+      background: var(--void);
+      padding: 112px 0;
+    }
+
+    @media(min-width:768px) {
+      #parallax {
+        padding: 160px 0;
+      }
+    }
+
+    .parallax-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 24px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media(min-width:768px) {
+      .parallax-grid {
+        gap: 40px;
+        padding: 64px 64px 0;
+      }
+    }
+
+    .parallax-col {
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+    }
+
+    @media(min-width:768px) {
+      .parallax-col {
+        gap: 80px;
+      }
+    }
+
+    .parallax-col.bg {
+      padding-top: 64px;
+    }
+
+    @media(min-width:768px) {
+      .parallax-col.bg {
+        padding-top: 96px;
+      }
+    }
+
+    .parallax-img-wrap {
+      overflow: hidden;
+      will-change: transform;
+    }
+
+    .parallax-img-wrap img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+    }
+
+    .parallax-caption {
+      margin-top: 12px;
+      opacity: 0;
+    }
+
+    .parallax-caption h4 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .parallax-caption p {
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--bone-dim);
+    }
+
+    /* ---------- process (rotate-in reveal) ---------- */
+    #process {
+      position: relative;
+      background: var(--void-soft);
+      padding: 112px 0;
+      overflow: hidden;
+    }
+
+    @media(min-width:768px) {
+      #process {
+        padding: 160px 0;
+      }
+    }
+
+    .process-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 900px;
+      height: 900px;
+      margin: -450px 0 0 -450px;
+      opacity: 0.05;
+      pointer-events: none;
+      animation: spin 60s linear infinite;
+    }
+
+    .process-heading {
+      position: relative;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 24px 56px;
+      text-align: center;
+    }
+
+    @media(min-width:768px) {
+      .process-heading {
+        padding: 0 24px 80px;
+      }
+    }
+
+    .process-heading h2 {
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1.05;
+    }
+
+    @media(min-width:768px) {
+      .process-heading h2 {
+        font-size: 44px;
+      }
+    }
+
+    .process-heading p {
+      margin-top: 14px;
+      font-size: 14px;
+      color: var(--bone-dim);
+    }
+
+    .process-grid {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    @media(min-width:768px) {
+      .process-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 0 64px;
+      }
+    }
+
+    .process-card {
+      border: 1px solid rgba(240, 234, 224, 0.1);
+      background: var(--void);
+      padding: 28px 24px;
+      border-radius: 2px;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    .process-num {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--red);
+    }
+
+    .process-card svg {
+      color: var(--bone);
+      margin-top: 18px;
+    }
+
+    .process-card h4 {
+      margin-top: 18px;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .process-card p {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--bone-dim);
+      line-height: 1.5;
+    }
+
+    /* ---------- services ---------- */
+    #services {
+      position: relative;
+      background: var(--void);
+      padding: 112px 0;
+    }
+
+    @media(min-width:768px) {
+      #services {
+        padding: 160px 0;
+      }
+    }
+
+    .services-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 24px 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media(min-width:768px) {
+      .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        padding: 64px 64px 0;
+      }
+    }
+
+    .service-card {
+      border: 1px solid rgba(240, 234, 224, 0.1);
+      background: var(--void-soft);
+      padding: 32px;
+      border-radius: 2px;
+      opacity: 0;
+    }
+
+    .service-card svg {
+      color: var(--red);
+    }
+
+    .service-card h4 {
+      margin-top: 24px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .service-card p {
+      margin-top: 8px;
+      font-size: 14px;
+      color: var(--bone-dim);
+    }
+
+    /* ---------- contact ---------- */
+    #contact {
+      position: relative;
+      background: var(--void);
+      padding: 112px 24px;
+    }
+
+    @media(min-width:768px) {
+      #contact {
+        padding: 160px 64px;
+      }
+    }
+
+    .contact-fade {
+      opacity: 0;
+    }
+
+    .contact-eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      color: var(--red);
+    }
+
+    .contact-title {
+      margin-top: 16px;
+      max-width: 640px;
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 0.95;
+    }
+
+    @media(min-width:768px) {
+      .contact-title {
+        font-size: 64px;
+      }
+    }
+
+    .contact-links {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 40px;
+      font-size: 14px;
+      color: var(--bone-dim);
+    }
+
+    .contact-links a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-links a:hover {
+      color: var(--bone);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-row {
+      margin-top: 96px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(240, 234, 224, 0.1);
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--bone-dim);
+    }
+  </style>
 </head>
 
 <body>
 
-  <div class="site">
-    <div class="wrap">
-
-      <!-- Navigation -->
-      <nav class="site-nav">
-        <div class="brand-logo">
-          <span class="rec-dot"></span>
-          Todor <span class="thin">&nbsp;YANCHEV</span>
-        </div>
-        <div class="links">
-          <a href="#home">Начало</a>
-          <a href="#portfolio">Портфолио</a>
-          <a href="#services">Услуги</a>
-          <a href="#contact">Контакти</a>
-        </div>
-      </nav>
-
-      <main>
-        <!-- Main Hero Section -->
-        <section class="site-hero" id="home">
-          <div>
-            <h1>Кадри за<br>твоята история.</h1>
-            <p>Фотография и филм за сватби, бизнес събития и рекламни кампании — направени за екрана и социалните мрежи.
-            </p>
-            <a href="#portfolio" class="cta">Виж портфолио</a>
-          </div>
-          <div class="visual">
-            <div class="play">
-              <iframe
-                src="https://www.youtube.com/embed/BaR7aVOiDiM?autoplay=1&mute=1&controls=0&loop=1&playlist=BaR7aVOiDiM"
-                title="YouTube Short" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-              </iframe>
-            </div>
-          </div>
-        </section>
-
-        <!-- Services Row -->
-        <section class="services-row" id="services">
-          <article class="service-cell">
-            <div class="tag2">Сватби</div>
-            <h3>Сватбен ден</h3>
-            <p>Пълно отразяване от подготовка до първи танц.</p>
-          </article>
-          <article class="service-cell">
-            <div class="tag2">Бизнес</div>
-            <h3>Събития</h3>
-            <p>Конференции, откривания, корпоративни партита.</p>
-          </article>
-          <article class="service-cell">
-            <div class="tag2">Реклама</div>
-            <h3>Кампании</h3>
-            <p>Видео съдържание за магазини и инфлуенсъри.</p>
-          </article>
-        </section>
-
-        <!-- Film Sprocket Divider -->
-        <div class="sprocket" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
-
-        <!-- Personal Brand Hero -->
-        <section class="hero">
-          <div>
-            <div class="rec-line"><span class="rec-dot"></span>REC — Photo / Film</div>
-            <div class="wordmark">TODOR<br><span class="thin">YANCHEV</span></div>
-            <p class="subline">Заснемам моменти, които не се повтарят — сватби, бизнес събития и рекламно съдържание за
-              марки и инфлуенсъри.</p>
-            <div class="hero-tags">Сватби · Кръщенета · Бизнес събития · Реклама · Варна</div>
-          </div>
-          <div class="about-frame frame always">
-            <span class="c tl"></span><span class="c tr"></span>
-            <span class="c bl"></span><span class="c br"></span>
-            <span class="tag">TODOR_YANCHEV.JPG</span>
-          </div>
-        </section>
-
-        <!-- Film Sprocket Divider -->
-        <div class="sprocket" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
-
-        <!-- Portfolio Grid Section -->
-        <section class="bordered" id="portfolio">
-          <div class="frame-no">Кадър 009 / Портфолио — решетка</div>
-          <div class="portfolio-grid">
-            <div class="p-tile tall fr">
-              <div class="ph wedding"></div>
-              <div class="tag"><span>Сватба</span></div>
-            </div>
-            <div class="p-tile fr">
-              <div class="ph event"></div>
-              <div class="tag"><span>Събитие</span></div>
-            </div>
-            <div class="p-tile fr">
-              <div class="ph commercial"></div>
-              <div class="play" style="width:22px;height:22px;"></div>
-              <div class="tag"><span>Реклама</span></div>
-            </div>
-            <div class="p-tile tall fr">
-              <div class="ph reel"></div>
-              <div class="play" style="width:22px;height:22px;"></div>
-              <div class="tag"><span>Reel</span></div>
-            </div>
-            <div class="p-tile fr">
-              <div class="ph event"></div>
-              <div class="tag"><span>Бизнес</span></div>
-            </div>
-            <div class="p-tile fr">
-              <div class="ph wedding"></div>
-              <div class="tag"><span>Сватба</span></div>
-            </div>
-            <div class="p-tile fr">
-              <div class="ph commercial"></div>
-              <div class="tag"><span>Реклама</span></div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="contact bordered" id="contact">
-          <div class="eyebrow">Запитване</div>
-          <h2 class="section-title">Хайде да заснемем нещо.</h2>
-          <div class="contact-row">
-            <div class="contact-links">
-              <a href="mailto:yanchev.todor@gmail.com">yanchev.todor@gmail.com</a>
-              <a href="tel:+359878809454">+359 878 809 454</a>
-            </div>
-            <div class="contact-meta">
-              ВАРНА, БЪЛГАРИЯ<br>
-              НА РАЗПОЛОЖЕНИЕ ЗА ПЪТУВАНЕ<br>
-              INSTAGRAM · FACEBOOK · LINKEDIN
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <!-- Footer -->
-      <footer>
-        <div class="foot-row">
-          <div class="brand-logo">
-            <span class="rec-dot"></span>
-            Todor <span class="thin">&nbsp;YANCHEV</span>
-          </div>
-          <div class="foot-links">
-            <a href="#">Instagram</a>
-            <a href="#">Facebook</a>
-            <a href="#">LinkedIn</a>
-          </div>
-          <div class="copy">© 2026 TODOR YANCHEV — ALL RIGHTS RESERVED</div>
-        </div>
-      </footer>
-
-    </div>
+  <div id="progress-track">
+    <div id="progress-fill"></div>
   </div>
 
+  <!-- ================= NAV ================= -->
+  <nav id="nav">
+    <a href="#hero" class="nav-brand">
+      <svg class="nav-mark" width="30" height="30" viewBox="0 0 64 64">
+        <path d="M8 20V8h12M44 8h12v12M56 44v12H44M20 56H8V44" fill="none" stroke="#F0EAE0" stroke-width="4"
+          stroke-linecap="round" />
+        <circle cx="32" cy="32" r="5" fill="#E8332A" />
+      </svg>
+      <span class="nav-word">TODOR YANCHEV</span>
+    </a>
+    <div class="nav-right">
+      <span class="nav-domain mono">todoryanchev.com</span>
+      <svg class="nav-aperture" id="nav-aperture" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.6">
+        <circle cx="12" cy="12" r="9" />
+        <circle cx="12" cy="12" r="9" stroke-dasharray="3 5" />
+        <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
+      </svg>
+    </div>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <section id="hero">
+    <div class="hero-img-wrap">
+      <img src="/IMG_20250928_100509~2-EFFECTS.jpg" alt="" />
+    </div>
+    <div class="hero-text">
+      <div class="hero-eyebrow">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="9" />
+          <circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none" />
+        </svg>
+        TODOR YANCHEV — PHOTO / VIDEO
+      </div>
+      <h1 class="hero-title">FRAME<br />BY FRAME.</h1>
+      <p class="hero-sub">Event photography, videography and promo films for weddings, brands and creators — shot to
+        hold up at full scale.</p>
+    </div>
+
+    <!-- rotating badge: continuous CSS spin + scroll-linked fade -->
+    <div class="spin-badge">
+      <svg class="spin-badge-ring" viewBox="0 0 200 200">
+        <defs>
+          <path id="badgeCircle" d="M100,100 m-84,0 a84,84 0 1,1 168,0 a84,84 0 1,1 -168,0" />
+        </defs>
+        <text font-size="12.5" fill="#F0EAE0" letter-spacing="2.5">
+          <textPath href="#badgeCircle">AVAILABLE FOR BOOKINGS • TODORYANCHEV.COM • </textPath>
+        </text>
+      </svg>
+      <div class="spin-badge-center">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 17L17 7M17 7H9M17 7V15" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="scroll-cue">
+      <span class="mono">SCROLL</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 9l6 6 6-6" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- ================= PINNED HORIZONTAL REEL ================= -->
+  <section id="reel-section">
+    <div class="reel-sticky">
+      <div class="section-label mono"><span>01</span> THE REEL</div>
+      <div class="reel-viewport">
+        <div id="reel-row">
+          <div class="reel-card" data-tag="PHOTO — WEDDING" data-title="Rooftop Wedding"
+            data-gear="Sony A7IV · 35mm f/1.4">
+            <div class="reel-corner tl"></div>
+            <div class="reel-corner tr"></div>
+            <div class="reel-corner bl"></div>
+            <div class="reel-corner br"></div>
+            <img src="https://picsum.photos/seed/reel1/1000/1300" alt="Rooftop Wedding" />
+            <div class="reel-caption">
+              <p class="tag mono"></p>
+              <h3></h3>
+              <p class="mono"></p>
+            </div>
+          </div>
+          <div class="reel-card" data-tag="VIDEO — BRAND PROMO" data-title="Launch Night"
+            data-gear="FX3 · 24–70mm f/2.8">
+            <div class="reel-corner tl"></div>
+            <div class="reel-corner tr"></div>
+            <div class="reel-corner bl"></div>
+            <div class="reel-corner br"></div>
+            <img src="https://picsum.photos/seed/reel2/1000/1300" alt="Launch Night" />
+            <div class="reel-caption">
+              <p class="tag mono"></p>
+              <h3></h3>
+              <p class="mono"></p>
+            </div>
+          </div>
+          <div class="reel-card" data-tag="PHOTO — INFLUENCER" data-title="Studio Session"
+            data-gear="A7IV · 85mm f/1.8">
+            <div class="reel-corner tl"></div>
+            <div class="reel-corner tr"></div>
+            <div class="reel-corner bl"></div>
+            <div class="reel-corner br"></div>
+            <img src="https://picsum.photos/seed/reel3/1000/1300" alt="Studio Session" />
+            <div class="reel-caption">
+              <p class="tag mono"></p>
+              <h3></h3>
+              <p class="mono"></p>
+            </div>
+          </div>
+          <div class="reel-card" data-tag="VIDEO — EVENT" data-title="Grand Opening" data-gear="FX3 · 16–35mm f/2.8">
+            <div class="reel-corner tl"></div>
+            <div class="reel-corner tr"></div>
+            <div class="reel-corner bl"></div>
+            <div class="reel-corner br"></div>
+            <img src="https://picsum.photos/seed/reel4/1000/1300" alt="Grand Opening" />
+            <div class="reel-caption">
+              <p class="tag mono"></p>
+              <h3></h3>
+              <p class="mono"></p>
+            </div>
+          </div>
+          <div class="reel-card" data-tag="PHOTO — EDITORIAL" data-title="Autumn Editorial"
+            data-gear="A7IV · 50mm f/1.2">
+            <div class="reel-corner tl"></div>
+            <div class="reel-corner tr"></div>
+            <div class="reel-corner bl"></div>
+            <div class="reel-corner br"></div>
+            <img src="https://picsum.photos/seed/reel5/1000/1300" alt="Autumn Editorial" />
+            <div class="reel-caption">
+              <p class="tag mono"></p>
+              <h3></h3>
+              <p class="mono"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tally"></div>
+    </div>
+  </section>
+
+  <!-- ================= PARALLAX / REVEAL GRID ================= -->
+  <section id="parallax">
+    <div class="section-label mono"><span>02</span> IN FRAME</div>
+    <div class="parallax-grid">
+      <div class="parallax-col bg">
+        <div class="parallax-card" data-speed="0.18">
+          <div class="parallax-img-wrap"><img src="https://picsum.photos/seed/bg1/900/1100" alt="Chapel Light" /></div>
+          <div class="parallax-caption">
+            <h4>Chapel Light</h4>
+            <p class="mono">1/200 · f/2.0 · ISO 200</p>
+          </div>
+        </div>
+        <div class="parallax-card" data-speed="0.18">
+          <div class="parallax-img-wrap"><img src="https://picsum.photos/seed/bg2/900/1100" alt="First Look" /></div>
+          <div class="parallax-caption">
+            <h4>First Look</h4>
+            <p class="mono">1/320 · f/1.8 · ISO 400</p>
+          </div>
+        </div>
+      </div>
+      <div class="parallax-col">
+        <div class="parallax-card" data-speed="0.42">
+          <div class="parallax-img-wrap"><img src="https://picsum.photos/seed/fg1/900/1100" alt="Backstage" /></div>
+          <div class="parallax-caption">
+            <h4>Backstage</h4>
+            <p class="mono">1/125 · f/2.8 · ISO 800</p>
+          </div>
+        </div>
+        <div class="parallax-card" data-speed="0.42">
+          <div class="parallax-img-wrap"><img src="https://picsum.photos/seed/fg2/900/1100" alt="Product Detail" />
+          </div>
+          <div class="parallax-caption">
+            <h4>Product Detail</h4>
+            <p class="mono">1/250 · f/4.0 · ISO 100</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROCESS (rotate-in reveal) ================= -->
+  <section id="process">
+    <svg class="process-ring" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="94" fill="none" stroke="#F0EAE0" stroke-width="0.5" stroke-dasharray="1 6" />
+      <circle cx="100" cy="100" r="70" fill="none" stroke="#E8332A" stroke-width="0.5" stroke-dasharray="1 4" />
+    </svg>
+    <div class="section-label mono"><span>03</span> HOW IT WORKS</div>
+    <div class="process-heading">
+      <h2>Four steps, no surprises.</h2>
+      <p>From first message to final delivery — a straight line, kept simple on purpose.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-card" data-rot="-1">
+        <p class="process-num mono">01</p>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+          <path d="M3 7l9 6 9-6" />
+        </svg>
+        <h4>Discovery Call</h4>
+        <p>A short call to lock the date, the look, and what "done" means for your event.</p>
+      </div>
+      <div class="process-card" data-rot="1">
+        <p class="process-num mono">02</p>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="7" width="18" height="13" rx="2" />
+          <path d="M8 7l1.5-3h5L16 7" />
+          <circle cx="12" cy="13.5" r="3.5" />
+        </svg>
+        <h4>Shoot Day</h4>
+        <p>On site, low-profile, and ready for whatever the day actually does.</p>
+      </div>
+      <div class="process-card" data-rot="-1">
+        <p class="process-num mono">03</p>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="5" width="15" height="14" rx="2" />
+          <path d="M17 9l5-3v12l-5-3z" />
+        </svg>
+        <h4>Edit &amp; Color</h4>
+        <p>A tight, consistent pass — no filters that fight the moment.</p>
+      </div>
+      <div class="process-card" data-rot="1">
+        <p class="process-num mono">04</p>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+        </svg>
+        <h4>Delivery</h4>
+        <p>Full-res gallery and cuts, delivered on a clear timeline — every time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SERVICES ================= -->
+  <section id="services">
+    <div class="section-label mono"><span>04</span> SERVICES</div>
+    <div class="services-grid">
+      <div class="service-card">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="7" width="18" height="13" rx="2" />
+          <path d="M8 7l1.5-3h5L16 7" />
+          <circle cx="12" cy="13.5" r="3.5" />
+        </svg>
+        <h4>Event Photography</h4>
+        <p>Weddings and business events, shot documentary-first with a fast, unobtrusive style.</p>
+      </div>
+      <div class="service-card">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="5" width="15" height="14" rx="2" />
+          <path d="M17 9l5-3v12l-5-3z" />
+        </svg>
+        <h4>Videography</h4>
+        <p>Promo films and highlight reels, cut for the platforms they'll actually live on.</p>
+      </div>
+      <div class="service-card">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="9" />
+          <circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none" />
+        </svg>
+        <h4>Influencer Content</h4>
+        <p>Fast-turnaround content days for creators and stores that need volume without losing quality.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT / FOOTER ================= -->
+  <section id="contact">
+    <div class="contact-fade">
+      <div class="contact-eyebrow mono">05 — CONTACT</div>
+      <h2 class="contact-title">LET'S SHOOT<br />SOMETHING REAL.</h2>
+      <div class="contact-links mono">
+        <a href="mailto:hello@todoryanchev.com">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <path d="M3 7l9 6 9-6" />
+          </svg>
+          hello@todoryanchev.com
+        </a>
+        <span class="contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 21s-7-7.2-7-12a7 7 0 0 1 14 0c0 4.8-7 12-7 12z" />
+            <circle cx="12" cy="9" r="2.5" />
+          </svg>
+          Available for travel
+        </span>
+        <a href="#">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+          </svg>
+          @todoryanchev
+        </a>
+        <a href="#">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8" cy="8" r="1" fill="currentColor" stroke="none" />
+            <path d="M8 11v6M13 17v-4a2 2 0 0 1 4 0v4M13 11v0" />
+          </svg>
+          Todor Yanchev
+        </a>
+      </div>
+    </div>
+    <div class="footer-row mono">
+      <span>TODOR YANCHEV PHOTOGRAPHY &amp; VIDEOGRAPHY — TODORYANCHEV.COM</span>
+      <span id="year"></span>
+    </div>
+  </section>
+
+  <script>
+    /* ============================================================
+       Scroll-scrubbed animation engine — pure JS, no libraries.
+       Every value below is computed from scroll position on every
+       frame (throttled with requestAnimationFrame), then written
+       as an inline style. Comments mark the TWEAK ZONES — swap
+       these ranges 1:1 into GSAP scrub / Framer useTransform later.
+       ============================================================ */
+
+    const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+    const lerp = (a, b, t) => a + (b - a) * t;
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // fill in reel card captions from data attributes
+    document.querySelectorAll('.reel-card').forEach(card => {
+      card.querySelector('.tag').textContent = card.dataset.tag;
+      card.querySelector('h3').textContent = card.dataset.title;
+      card.querySelector('.reel-caption p.mono').textContent = card.dataset.gear;
+    });
+
+    // build tally dots to match reel card count
+    const reelCards = Array.from(document.querySelectorAll('.reel-card'));
+    const tallyEl = document.getElementById('tally');
+    reelCards.forEach(() => {
+      const dot = document.createElement('span');
+      dot.className = 'tally-dot';
+      tallyEl.appendChild(dot);
+    });
+    const tallyDots = Array.from(document.querySelectorAll('.tally-dot'));
+
+    const reelSection = document.getElementById('reel-section');
+    const reelRow = document.getElementById('reel-row');
+    const navEl = document.getElementById('nav');
+    const navAperture = document.getElementById('nav-aperture');
+    const spinBadge = document.querySelector('.spin-badge');
+
+    let reelDistance = 0;
+
+    // ---- measure: sizes the pinned track to match reel content width ----
+    function measure() {
+      reelDistance = Math.max(reelRow.scrollWidth - window.innerWidth, 0);
+      // TWEAK: the "100 +" is vertical scroll room for the pin; raise the
+      // multiplier below to slow the horizontal scrub speed down
+      const trackVh = 100 + (reelDistance / window.innerWidth) * 100;
+      reelSection.style.height = trackVh + 'vh';
+    }
+
+    // ---- nav: solid backdrop past the hero, aperture rotates with scroll ----
+    function updateNav(pageProgress) {
+      navEl.classList.toggle('scrolled', window.scrollY > 40);
+      // TWEAK: rotate 720deg (two turns) across the full page scroll
+      navAperture.style.transform = `rotate(${pageProgress * 720}deg)`;
+    }
+
+    // ---- hero parallax / fade (scrubbed over the first 100vh of scroll) ----
+    function updateHero() {
+      const p = clamp(window.scrollY / window.innerHeight, 0, 1);
+      const imgWrap = document.querySelector('.hero-img-wrap');
+      const scale = lerp(1, 1.22, p);              // TWEAK: [1, 1.22]
+      const opacity = lerp(0.75, 0, clamp(p * 1.3, 0, 1));
+      const y = lerp(0, 140, p);                    // parallax drift
+      imgWrap.style.transform = `scale(${scale}) translateY(${y}px)`;
+      imgWrap.style.opacity = opacity;
+
+      const text = document.querySelector('.hero-text');
+      const textY = lerp(0, -90, p);
+      const textOpacity = lerp(1, 0, clamp(p * 1.8, 0, 1));
+      text.style.transform = `translateY(${textY}px)`;
+      text.style.opacity = textOpacity;
+
+      document.querySelector('.scroll-cue').style.opacity = lerp(1, 0, clamp(p * 4, 0, 1));
+
+      // rotating badge fades out as the hero scrolls away (spin keeps going via CSS)
+      spinBadge.style.opacity = lerp(1, 0, clamp(p * 2.5, 0, 1));
+    }
+
+    // ---- pinned horizontal reel: pin -> scrub -> release ----
+    function updateReel() {
+      const rect = reelSection.getBoundingClientRect();
+      const total = rect.height - window.innerHeight;
+      const scrolled = -rect.top;
+      const progress = total > 0 ? clamp(scrolled / total, 0, 1) : 0;
+
+      const x = -progress * reelDistance;           // MAIN SCRUB VALUE
+      reelRow.style.transform = `translateX(${x}px)`;
+
+      tallyDots.forEach((dot, i) => {
+        const threshold = i / Math.max(tallyDots.length - 1, 1);
+        dot.style.background = progress >= threshold - 0.02 ? 'var(--red)' : 'rgba(240,234,224,0.2)';
+      });
+
+      // per-card reveal: 1 when a card's center lines up with screen-center
+      const centerX = window.innerWidth / 2;
+      reelCards.forEach(card => {
+        const r = card.getBoundingClientRect();
+        const dist = Math.abs(r.left + r.width / 2 - centerX);
+        // TWEAK: 0.6 controls how wide the "reveal zone" is around center
+        const reveal = clamp(1 - dist / (r.width * 0.6), 0, 1);
+        card.querySelector('img').style.filter = `brightness(${lerp(0.5, 1, reveal)})`;
+        const caption = card.querySelector('.reel-caption');
+        caption.style.opacity = reveal;
+        caption.style.transform = `translateY(${lerp(20, 0, reveal)}px)`;
+        caption.style.clipPath = `inset(${lerp(35, 0, reveal)}% 0 0 0)`;
+      });
+    }
+
+    // ---- generic in-view progress: 0 entering bottom -> 1 exiting top ----
+    function inViewProgress(el) {
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      return clamp((vh - rect.top) / (vh + rect.height), 0, 1);
+    }
+
+    const parallaxCards = Array.from(document.querySelectorAll('.parallax-card'));
+    function updateParallax() {
+      parallaxCards.forEach(card => {
+        const speed = parseFloat(card.dataset.speed); // TWEAK: per-column speed multiplier
+        const progress = inViewProgress(card);
+        const y = lerp(90, -90, progress) * speed;
+        card.querySelector('.parallax-img-wrap').style.transform = `translateY(${y}px)`;
+
+        const reveal = clamp((progress - 0.35) / 0.3, 0, 1); // reveal window centered on mid-viewport
+        const caption = card.querySelector('.parallax-caption');
+        caption.style.opacity = reveal;
+        caption.style.transform = `translateY(${lerp(14, 0, reveal)}px)`;
+      });
+    }
+
+    // ---- process cards: rotate-in reveal, alternating direction ----
+    const processCards = Array.from(document.querySelectorAll('.process-card'));
+    function updateProcess() {
+      processCards.forEach(card => {
+        const dir = parseFloat(card.dataset.rot); // -1 or 1, alternating per card
+        const progress = inViewProgress(card);
+        const t = clamp((progress - 0.15) / 0.55, 0, 1);
+        // TWEAK: starting angle before it settles at 0deg
+        const rotate = lerp(dir * 12, 0, t);
+        const scale = lerp(0.9, 1, t);
+        const y = lerp(40, 0, t);
+        card.style.transform = `rotateZ(${rotate}deg) translateY(${y}px) scale(${scale})`;
+        card.style.opacity = t;
+      });
+    }
+
+    const serviceCards = Array.from(document.querySelectorAll('.service-card'));
+    function updateServices() {
+      serviceCards.forEach(card => {
+        const progress = inViewProgress(card);
+        const t = clamp(progress * 1.7, 0, 1);
+        const tilt = lerp(8, 0, t);      // TWEAK: entrance tilt angle
+        const elevate = lerp(28, 0, t);  // TWEAK: entrance elevation
+        const opacity = clamp(progress * 2.2, 0, 1);
+        card.style.transform = `perspective(900px) rotateX(${tilt}deg) translateY(${elevate}px)`;
+        card.style.opacity = opacity;
+      });
+    }
+
+    const contactFade = document.querySelector('.contact-fade');
+    function updateContact() {
+      const progress = inViewProgress(contactFade);
+      const opacity = clamp(progress * 1.8, 0, 1);
+      const y = lerp(30, 0, opacity);
+      contactFade.style.opacity = opacity;
+      contactFade.style.transform = `translateY(${y}px)`;
+    }
+
+    function pageProgress() {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      return max > 0 ? clamp(window.scrollY / max, 0, 1) : 0;
+    }
+
+    function updateProgressBar(p) {
+      document.getElementById('progress-fill').style.width = (p * 100) + '%';
+    }
+
+    // ---- single rAF-throttled scroll loop drives every section above ----
+    function update() {
+      const p = pageProgress();
+      updateProgressBar(p);
+      updateNav(p);
+      updateHero();
+      updateReel();
+      updateParallax();
+      updateProcess();
+      updateServices();
+      updateContact();
+    }
+
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => { update(); ticking = false; });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => { measure(); update(); });
+    window.addEventListener('load', () => { measure(); update(); });
+
+    measure();
+    update();
+  </script>
 </body>
 
 </html>
